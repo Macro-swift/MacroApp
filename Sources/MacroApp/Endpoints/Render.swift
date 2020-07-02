@@ -11,6 +11,9 @@ import enum NIOHTTP1.HTTPMethod
  * Lookup a template with the given name, locate the rendering engine for it,
  * and render it with the options that are passed in.
  *
+ * If no method is explicitly given, this is only active for GET, POST and HEAD.
+ * Other methods will received a 405.
+ *
  * Example:
  *
  *     MyApp: App {
@@ -34,7 +37,15 @@ public func Render(id            : String?     = nil,
             -> Use
 {
   return Use(id: id, pathPattern, method: method) {
-    req, res, _ in
+    req, res, next in
+    
+    if method == nil {
+      switch method {
+        case .GET, .POST, .HEAD : break
+        default                 : return res.sendStatus(405)
+      }
+    }
+    
     res.render(template, options)
   }
 }
