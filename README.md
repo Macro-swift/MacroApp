@@ -50,6 +50,7 @@ struct HelloWorld: App {
           
       Route("/admin") {
         Get("/view") { req, res, _ in res.render("admin-index.html") }
+        Render("help", template: "help")
       }
       
       Get { req, res, next in
