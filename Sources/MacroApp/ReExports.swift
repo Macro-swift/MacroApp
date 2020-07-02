@@ -14,8 +14,8 @@
 @_exported import struct    MacroCore.Buffer
 @_exported import enum      MacroCore.ReadableError
 @_exported import enum      MacroCore.WritableError
-@_exported import protocol  NIO.EventLoop
-@_exported import protocol  NIO.EventLoopGroup
+
+@_exported import enum      dotenv.dotenv
 
 @_exported import class     http.IncomingMessage
 @_exported import class     http.OutgoingMessage
@@ -38,8 +38,6 @@
 
 @_exported import class     express.Express
 @_exported import typealias express.ExpressEngine
-@_exported import typealias express.Router
-@_exported import class     express.Route
 @_exported import protocol  express.RouteKeeper
 
 // We need to import those fully, because they contain query a few extensions,
@@ -51,11 +49,11 @@
 // MARK: - Submodules in `fs` Target
 
 import enum      fs.FileSystemModule
-public typealias fs = FileSystemModule
 import enum      fs.PathModule
-public typealias path = PathModule
 import enum      fs.JSONFileModule
-public typealias jsonfile = JSONFileModule
+public typealias fs          = FileSystemModule
+public typealias path        = PathModule
+public typealias jsonfile    = JSONFileModule
 
 // MARK: - Submodules in `http` Target
 
