@@ -16,12 +16,13 @@ import MacroExpress
  *     @main
  *     struct MyApp: App {
  *
- *       var body : some Endpoints {
- *         Post("/findCow") { req, res, next in ...
+ *         var body : some Endpoints {
+ *             Post("/findCow") { req, res, next in
+ *                 res.send(cows.vaca())
+ *             }
+ *             Use { req, res, next in ...
+ *             }
  *         }
- *         Use { req, res, next in ...
- *         }
- *       }
  *     }
  *
  * Note: The `@main` attribute is available starting with Swift 5.3.
@@ -37,7 +38,11 @@ public protocol App {
 
   associatedtype Body : Endpoints
   
-  var body : Self.Body { get }
+  #if swift(>=5.3)
+    @EndpointsBuilder var body : Self.Body { get }
+  #else
+                      var body : Self.Body { get }
+  #endif
   
   /**
    * Returns the port to be used.

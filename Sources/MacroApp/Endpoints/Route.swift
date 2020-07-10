@@ -14,13 +14,13 @@ import class    MacroExpress.Route
  * Example:
  *
  *     MyApp: App {
- *        var body: some Endpoints {
- *            Mount("/admin") {  // create a new Express object
- *               Get("/users") { // this will match `/admin/users`
- *                 ...
- *               }
- *            }
- *        }
+ *         var body: some Endpoints {
+ *             Mount("/admin") {  // create a new Express object
+ *                 Get("/users") { // this will match `/admin/users`
+ *                     ...
+ *                 }
+ *             }
+ *         }
  *     }
  *
  * There is also `Mount` which creates a full, nested `Express` application
