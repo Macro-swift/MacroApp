@@ -17,9 +17,9 @@ import enum NIOHTTP1.HTTPMethod
  * Example:
  *
  *     MyApp: App {
- *        var body: some Endpoints {
- *            Render("/", template: "index")
- *        }
+ *         var body: some Endpoints {
+ *             Render("/", template: "index")
+ *         }
  *     }
  *
  * Assuming your 'views' directory contains an `index.mustache` file, this

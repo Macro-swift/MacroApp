@@ -16,12 +16,13 @@ import MacroExpress
  *     @main
  *     struct MyApp: App {
  *
- *       var body : some Endpoints {
- *         Post("/findCow") { req, res, next in ...
+ *         var body : some Endpoints {
+ *             Post("/findCow") { req, res, next in
+ *                 res.send(cows.vaca())
+ *             }
+ *             Use { req, res, next in ...
+ *             }
  *         }
- *         Use { req, res, next in ...
- *         }
- *       }
  *     }
  *
  * Note: The `@main` attribute is available starting with Swift 5.3.
