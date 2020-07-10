@@ -38,7 +38,11 @@ public protocol App {
 
   associatedtype Body : Endpoints
   
-  var body : Self.Body { get }
+  #if swift(>=5.3)
+    @EndpointsBuilder var body : Self.Body { get }
+  #else
+                      var body : Self.Body { get }
+  #endif
   
   /**
    * Returns the port to be used.
