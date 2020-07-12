@@ -21,7 +21,28 @@ based app (with routes and middleware).
 
 ## Example
 
-Instead of this:
+MacroApp:
+
+```swift
+@main
+struct HelloWorld: App {
+  
+  var body: some Endpoints {
+    Use(logger("dev"), bodyParser.urlencoded())
+          
+    Route("/admin") {
+      Get("/view") { req, res, _ in res.render("admin-index.html") }
+      Render("help", template: "help")
+    }
+      
+    Get { req, res, next in
+      res.render("index.html")
+    }
+  }
+}
+```
+
+Instead of this traditional route setup (as in [MacroExpress](https://github.com/Macro-swift/MacroExpress/)):
 
 ```swift
 let app = express()
@@ -35,29 +56,6 @@ app.get("/") { req, res, _ in res.render("index.html") }
 
 app.listen(1337) {
     console.log("Server listening on http://localhost:1337")
-}
-```
-
-MacroApp does it like this:
-
-```swift
-@main
-struct HelloWorld: App {
-  
-  var body: some Endpoints {
-    Group {
-      Use(logger("dev"), bodyParser.urlencoded())
-          
-      Route("/admin") {
-        Get("/view") { req, res, _ in res.render("admin-index.html") }
-        Render("help", template: "help")
-      }
-      
-      Get { req, res, next in
-        res.render("index.html")
-      }
-    }
-  }
 }
 ```
 
