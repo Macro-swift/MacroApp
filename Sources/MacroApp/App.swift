@@ -27,6 +27,7 @@ import MacroExpress
  *
  * Note: The `@main` attribute is available starting with Swift 5.3.
  *       In earlier versions, call `try MyApp.main()` in your tool.
+ *       Though `@main` is not available in Swift Package Manager yet either 😬
  *
  * ## Sockets
  *
@@ -43,7 +44,7 @@ public protocol App {
   #else
                       var body : Self.Body { get }
   #endif
-  
+
   /**
    * Returns the port to be used.
    *
@@ -120,3 +121,11 @@ public extension App {
     try Self().run()
   }
 }
+
+#if swift(>=5.3)
+public extension App {
+  func callAsFunction() throws {
+    try run()
+  }
+}
+#endif
