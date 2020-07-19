@@ -5,8 +5,6 @@
 //  Copyright © 2020 ZeeZide GmbH. All rights reserved.
 //
 
-import MacroExpress
-
 /**
  * The base protocol for MacroExpress "Apps", i.e. builder based middleware
  * setup.
@@ -34,7 +32,7 @@ import MacroExpress
  * used. The default implementation uses the `PORT` environment variable,
  * or `1337` if that isn't set.
  */
-public protocol App {
+public protocol App: Endpoints, MiddlewareObject {
 
   associatedtype Body : Endpoints
   
@@ -53,6 +51,43 @@ public protocol App {
   var port : Int? { get }
   
   init()
+}
+
+public extension App {
+
+  /**
+   * Make all App`s endpoints.
+   *
+   * Apps can be used directly as `Endpoints`, or better get mounted using
+   * `Mount`.
+   *
+   * Example:
+   *
+   *     struct GrandApp: App {
+   *         var body: some Endpoints {
+   *             Cows()
+   *             Mount("/admin") {
+   *                 AdminApp()
+   *             }
+   *         }
+   *     }
+   *
+   */
+  @inlinable
+  func attachToRouter(_ router: RouteKeeper) throws {
+    try body.attachToRouter(router)
+  }
+}
+
+public extension App {
+
+  @inlinable
+  func handle(request  req : IncomingMessage,
+              response res : ServerResponse,
+              next         :  @escaping Next) throws
+  {
+    try express().handle(request: req, response: res, next: next)
+  }
 }
 
 public extension App {
@@ -87,15 +122,23 @@ public extension App {
    */
   func express() throws -> Express {
     let app = Express()
-    try body.attachToRouter(app)
+    try self.attachToRouter(app)
     return app
   }
-  
-  @usableFromInline internal func run() throws {
-    let app  = try express()
-    let port = self.port
 
-    app.listen(port) {
+  /**
+   * Creates an `express` object for the `App`,
+   * retrieves the `port` if necessary (defaults returns the `PORT` environment
+   * variable, or 1337 as the default),
+   * listens on the port,
+   * and finally starts up the MacroCore eventloop.
+   */
+  @usableFromInline
+  internal func run(port: Int? = nil, backlog: Int = 512) throws {
+    let app  = try express()
+    let port = port ?? self.port
+
+    app.listen(port, backlog: backlog) {
       #if false // TODO: enable once ME is tagged
         express.log.notice("App started on port:", port)
       #else
