@@ -9,16 +9,6 @@ import typealias MacroExpress.Middleware
 import typealias MacroExpress.ErrorMiddleware
 import protocol  MacroExpress.RouteKeeper
 
-public protocol MethodEndpoint: Endpoints {
-  var use : Use { get }
-}
-extension MethodEndpoint {
-  public func attachToRouter(_ router: RouteKeeper) throws {
-    try use.attachToRouter(router)
-  }
-}
-
-
 // Crazy, isn't it? :-)
 
 public func All(id: String? = nil, _ pathPattern: String? = nil,
