@@ -22,8 +22,9 @@ let package = Package(
   ],
   
   targets: [
-    .target(name: "MacroApp",
-            dependencies: [ "MacroCore", "MacroExpress" ]),
-    .testTarget(name: "MacroAppTests", dependencies: ["MacroApp"])
+    .target    (name: "MacroApp",
+                dependencies: [ "MacroCore", "MacroExpress"      ]),
+    .testTarget(name: "MacroAppTests",
+                dependencies: [ "MacroApp", "MacroTestUtilities" ])
   ]
 )

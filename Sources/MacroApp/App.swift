@@ -84,7 +84,7 @@ public extension App {
   @inlinable
   func handle(request  req : IncomingMessage,
               response res : ServerResponse,
-              next         :  @escaping Next) throws
+              next         : @escaping Next) throws
   {
     try express().handle(request: req, response: res, next: next)
   }

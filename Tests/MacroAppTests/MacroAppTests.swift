@@ -1,4 +1,8 @@
 import XCTest
+import MacroTestUtilities
+import typealias connect.Next
+import class     http.IncomingMessage
+import class     http.ServerResponse
 @testable import MacroApp
 
 final class MacroAppTests: XCTestCase {
@@ -24,10 +28,18 @@ final class MacroAppTests: XCTestCase {
     XCTAssertTrue (use.errorMiddleware.isEmpty)
     XCTAssertEqual(use.middleware.count, 1)
         
-    #if false // need a TestServerResponse in Macro
     let req = IncomingMessage(
       .init(version: .init(major: 1, minor: 1), method: .POST, uri: "/hello"))
-    #endif
+    let res = TestServerResponse()
+    
+    var didCallNext = false
+    try app.handle(request: req, response: res) { ( args : Any... ) in
+      XCTAssert(args.isEmpty)
+      didCallNext = true
+    }
+    XCTAssertFalse(didCallNext)
+    XCTAssertEqual(res.statusCode, 200)
+    XCTAssertEqual(try res.writtenContent.toString(), "Hello World!")
   }
   
   func testMountAppSetup() throws {
@@ -47,8 +59,8 @@ final class MacroAppTests: XCTestCase {
       }
     }
     
-    let app       = OuterApp()
-    let endpoints = app.body
+    let outerApp  = OuterApp()
+    let endpoints = outerApp.body
     
     XCTAssert(endpoints is Mount<InnerApp>)
     guard let mount = endpoints as? Mount<InnerApp> else { return }
@@ -67,6 +79,19 @@ final class MacroAppTests: XCTestCase {
     XCTAssertEqual(use.method, .POST)
     XCTAssertTrue (use.errorMiddleware.isEmpty)
     XCTAssertEqual(use.middleware.count, 1)
+
+    let req = IncomingMessage(
+      .init(version: .init(major: 1, minor: 1), method: .POST, uri: "/hello"))
+    let res = TestServerResponse()
+    
+    var didCallNext = false
+    try outerApp.handle(request: req, response: res) { ( args : Any... ) in
+      XCTAssert(args.isEmpty)
+      didCallNext = true
+    }
+    XCTAssertFalse(didCallNext)
+    XCTAssertEqual(res.statusCode, 200)
+    XCTAssertEqual(try res.writtenContent.toString(), "Hello World!")
   }
 
   static var allTests = [
