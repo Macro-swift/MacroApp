@@ -28,6 +28,12 @@ import enum NIOHTTP1.HTTPMethod
  *
  * When no options are passed in, render will fallback to the `view options`
  * setting in the application (TODO: merge the two contexts).
+ *
+ * - Parameter id: The `Route` id for middleware debugging
+ * - Parameter pathPattern: A `Route` path pattern (documented there)
+ * - Parameter method: An optional HTTP method that must match.
+ * - Parameter template: The name of the template file, looked up via Express.
+ * - Parameter options: Any options to pass into the template (or none).
  */
 public func Render(id            : String?     = nil,
                    _ pathPattern : String?     = nil,
