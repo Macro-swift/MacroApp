@@ -9,6 +9,9 @@ import typealias MacroExpress.Middleware
 import typealias MacroExpress.ErrorMiddleware
 import protocol  MacroExpress.RouteKeeper
 
+// All those just return a `Use` Endpoint preconfigured for the respective
+// HTTP methods.
+//
 // Crazy, isn't it? :-)
 
 public func All(id: String? = nil, _ pathPattern: String? = nil,

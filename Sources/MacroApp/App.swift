@@ -13,7 +13,6 @@ import MacroExpress
  *
  * Usage:
  *
- *     @main
  *     struct MyApp: App {
  *
  *         var body : some Endpoints {
@@ -58,6 +57,13 @@ public protocol App {
 
 public extension App {
 
+  /**
+   * Returns the port the `App` should run on if the `main` or `run` "runner"
+   * functions are used.
+   *
+   * It checks the `PORT` environment variable, and if this is missing uses the
+   * port `1337` as the default.
+   */
   var port : Int? {
     return process.getenv("PORT", defaultValue: 1337,
                           lowerWarningBound: 79, upperWarningBound: 2^16)
@@ -106,6 +112,7 @@ public extension App {
    *
    * This never finishes.
    *
+   * Update: `@main` does not work with Swift Package Manager yet.<br>
    * On Swift 5.3 the `main` function doesn't have do be invoked, instead the
    * `@main` attribute can be used like so:
    *
@@ -128,4 +135,4 @@ public extension App {
     try run()
   }
 }
-#endif
+#endif // Swift 5.3

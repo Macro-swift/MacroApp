@@ -8,6 +8,28 @@
 import typealias MacroExpress.Middleware
 import typealias MacroExpress.ErrorMiddleware
 
+/**
+ * `Use` adds an Endpoint, or old-style middleware to a `Router` (e.g. a `Route`
+ * or an `Express` object).
+ *
+ * There is the usual set of associated method functions:
+ * Get, Post, Put, Head, All etc. They all return preconfigured `Use` endpoints.
+ *
+ * Example:
+ *
+ *     MyApp: App {
+ *         var body: some Endpoints {
+ *
+ *             Use(logger())
+ *
+ *             Use("/admin") { req, res, next in
+ *                 console.log("hit admin endpoint ...")
+ *                 next()
+ *             }
+ *         }
+ *     }
+ *
+ */
 public struct Use: RouteEndpoint {
 
   public let id              : String?
