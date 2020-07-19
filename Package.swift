@@ -7,7 +7,7 @@ let package = Package(
   name: "MacroApp",
 
   platforms: [
-    .macOS(.v10_14), .iOS(.v11)
+    .macOS(.v10_15), .iOS(.v13) // 10.15/13 is required for `some` to work
   ],
   
   products: [
@@ -23,6 +23,7 @@ let package = Package(
   
   targets: [
     .target(name: "MacroApp",
-            dependencies: [ "MacroCore", "MacroExpress" ])
+            dependencies: [ "MacroCore", "MacroExpress" ]),
+    .testTarget(name: "MacroAppTests", dependencies: ["MacroApp"])
   ]
 )
