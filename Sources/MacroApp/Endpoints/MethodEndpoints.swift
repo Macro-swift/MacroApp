@@ -15,49 +15,49 @@ import protocol  MacroExpress.RouteKeeper
 // Crazy, isn't it? :-)
 
 public func All(id: String? = nil, _ pathPattern: String? = nil,
-                middleware: Middleware...) -> Use
+                _ middleware: Middleware...) -> Use
 {
   return Use(id: id, pathPattern: pathPattern, method: nil,
              middleware: middleware, errorMiddleware: [])
 }
 
 public func Get(id: String? = nil, _ pathPattern: String? = nil,
-                middleware: Middleware...) -> Use
+                _ middleware: Middleware...) -> Use
 {
   return Use(id: id, pathPattern: pathPattern, method: .GET,
              middleware: middleware, errorMiddleware: [])
 }
 
 public func Head(id: String? = nil, _ pathPattern: String? = nil,
-                 middleware: Middleware...) -> Use
+                 _ middleware: Middleware...) -> Use
 {
   return Use(id: id, pathPattern: pathPattern, method: .HEAD,
              middleware: middleware, errorMiddleware: [])
 }
 
 public func Put(id: String? = nil, _ pathPattern: String? = nil,
-                middleware: Middleware...) -> Use
+                _ middleware: Middleware...) -> Use
 {
   return Use(id: id, pathPattern: pathPattern, method: .PUT,
              middleware: middleware, errorMiddleware: [])
 }
 
 public func Patch(id: String? = nil, _ pathPattern: String? = nil,
-                  middleware: Middleware...) -> Use
+                  _ middleware: Middleware...) -> Use
 {
   return Use(id: id, pathPattern: pathPattern, method: .PATCH,
              middleware: middleware, errorMiddleware: [])
 }
 
 public func Delete(id: String? = nil, _ pathPattern: String? = nil,
-                   middleware: Middleware...) -> Use
+                   _ middleware: Middleware...) -> Use
 {
   return Use(id: id, pathPattern: pathPattern, method: .DELETE,
              middleware: middleware, errorMiddleware: [])
 }
 
 public func Post(id: String? = nil, _ pathPattern: String? = nil,
-                 middleware: Middleware...) -> Use
+                 _ middleware: Middleware...) -> Use
 {
   return Use(id: id, pathPattern: pathPattern, method: .POST,
              middleware: middleware, errorMiddleware: [])
