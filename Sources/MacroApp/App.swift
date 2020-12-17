@@ -50,6 +50,9 @@ public protocol App: Endpoints, MiddlewareObject {
    */
   var port : Int? { get }
   
+  /**
+   * Init is required to support `@main` (i.e. `static func main()`).
+   */
   init()
 }
 
