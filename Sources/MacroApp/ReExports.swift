@@ -66,5 +66,7 @@ public typealias querystring = QueryStringModule
 
 // MARK: - Process stuff
 
+@inlinable
 public var argv : [ String ]          { return process.argv }
+@inlinable
 public var env  : [ String : String ] { return process.env  }
