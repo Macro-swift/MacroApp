@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.2
 
 import PackageDescription
 
@@ -16,15 +16,19 @@ let package = Package(
   
   dependencies: [
     .package(url: "https://github.com/Macro-swift/Macro.git",
-             from: "0.5.7"),
+             from: "0.8.11"),
     .package(url: "https://github.com/Macro-swift/MacroExpress.git",
-             from: "0.5.7")
+             from: "0.8.8")
   ],
   
   targets: [
-    .target    (name: "MacroApp",
-                dependencies: [ "MacroCore", "MacroExpress"      ]),
-    .testTarget(name: "MacroAppTests",
-                dependencies: [ "MacroApp", "MacroTestUtilities" ])
+    .target(name: "MacroApp", dependencies: [ 
+      .product(name: "MacroCore", package: "Macro"), 
+      "MacroExpress"
+    ]),
+    .testTarget(name: "MacroAppTests", dependencies: [ 
+      .product(name: "MacroTestUtilities", package: "Macro"),
+      "MacroApp"
+    ])
   ]
 )
