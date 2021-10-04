@@ -2,13 +2,20 @@
 //  MacroApp
 //
 //  Created by Helge Heß.
-//  Copyright © 2020 ZeeZide GmbH. All rights reserved.
+//  Copyright © 2020-2021 ZeeZide GmbH. All rights reserved.
 //
 
+#if swift(>=5.5.0)
 /**
- * The function builder to trigger building of `Endpoint` elements.
- */
-@_functionBuilder public struct EndpointsBuilder {}
+   * The function builder to trigger building of `Endpoint` elements.
+   */
+  @resultBuilder public struct EndpointsBuilder {}
+#else
+  /**
+   * The function builder to trigger building of `Endpoint` elements.
+   */
+  @_functionBuilder public struct EndpointsBuilder {}
+#endif
 
 public extension EndpointsBuilder {
 
