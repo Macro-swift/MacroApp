@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.5
 
 import PackageDescription
 
@@ -16,9 +16,9 @@ let package = Package(
   
   dependencies: [
     .package(url: "https://github.com/Macro-swift/Macro.git",
-             from: "0.8.11"),
+             from: "1.0.0"),
     .package(url: "https://github.com/Macro-swift/MacroExpress.git",
-             from: "0.8.8")
+             from: "1.0.0")
   ],
   
   targets: [
