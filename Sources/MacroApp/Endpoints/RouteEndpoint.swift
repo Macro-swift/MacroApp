@@ -22,6 +22,7 @@ public protocol RouteEndpoint: Endpoints {
   var middleware      : [ Middleware      ] { get }
   var errorMiddleware : [ ErrorMiddleware ] { get }
   var method          : HTTPMethod?         { get }
+  var exact           : Bool?               { get }
 
   var route           : MacroExpress.Route  { get }
 }
@@ -30,6 +31,7 @@ public extension RouteEndpoint {
   @inlinable var id              : String?             { return nil }
   @inlinable var pathPattern     : String?             { return nil }
   @inlinable var method          : HTTPMethod?         { return nil }
+  @inlinable var exact           : Bool?               { return nil }
   @inlinable var middleware      : [ Middleware      ] { return []  }
   @inlinable var errorMiddleware : [ ErrorMiddleware ] { return []  }
 }
@@ -38,6 +40,7 @@ extension RouteEndpoint {
   @inlinable
   public var route : MacroExpress.Route {
     return .init(id: id, pattern: pathPattern, method: method,
+                 exact: exact,
                  middleware      : middleware,
                  errorMiddleware : errorMiddleware)
   }

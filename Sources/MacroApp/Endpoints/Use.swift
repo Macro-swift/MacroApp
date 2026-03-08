@@ -35,6 +35,7 @@ public struct Use: RouteEndpoint {
   public let id              : String?
   public let pathPattern     : String?
   public let method          : HTTPMethod?
+  public let exact           : Bool?
   public let middleware      : [ Middleware ]
   public let errorMiddleware : [ ErrorMiddleware ]
 
@@ -42,13 +43,15 @@ public struct Use: RouteEndpoint {
   public init(id              : String?,
               pathPattern     : String?,
               method          : HTTPMethod?,
+              exact           : Bool?              = nil,
               middleware      : [ Middleware ],
               errorMiddleware : [ ErrorMiddleware ])
   {
     self.id              = id
     self.pathPattern     = pathPattern
     self.method          = method
-    self.middleware      = middleware
+    self.exact           = exact
+    self.middleware       = middleware
     self.errorMiddleware = []
   }
 }
