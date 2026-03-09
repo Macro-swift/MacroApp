@@ -94,7 +94,7 @@ final class MacroAppTests: XCTestCase {
     XCTAssertEqual(try res.writtenContent.toString(), "Hello World!")
   }
 
-  static var allTests = [
+  static let allTests = [
     ( "testBasicAppSetup", testBasicAppSetup ),
     ( "testMountAppSetup", testMountAppSetup ),
   ]
