@@ -1,7 +1,2 @@
-import XCTest
-
-#if !canImport(ObjectiveC)
-public func allTests() -> [ XCTestCaseEntry ] {
-  return [ testCase(MacroAppTests.allTests) ]
-}
-#endif
+// Intentionally left blank.
+// Test discovery is handled by --enable-test-discovery.
