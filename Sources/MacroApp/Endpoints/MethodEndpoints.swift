@@ -18,6 +18,7 @@ public func All(id: String? = nil, _ pathPattern: String? = nil,
                 _ middleware: Middleware...) -> Use
 {
   return Use(id: id, pathPattern: pathPattern, method: nil,
+             exact: true,
              middleware: middleware, errorMiddleware: [])
 }
 

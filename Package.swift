@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:6.0
 
 import PackageDescription
 
@@ -6,9 +6,7 @@ let package = Package(
   
   name: "MacroApp",
 
-  platforms: [
-    .macOS(.v10_15), .iOS(.v13) // 10.15/13 is required for `some` to work
-  ],
+  platforms: [  .macOS(.v15), .iOS(.v18) ],
   
   products: [
     .library(name: "MacroApp", targets: [ "MacroApp" ]),
@@ -16,9 +14,9 @@ let package = Package(
   
   dependencies: [
     .package(url: "https://github.com/Macro-swift/Macro.git",
-             from: "1.0.0"),
+             from: "1.0.22"),
     .package(url: "https://github.com/Macro-swift/MacroExpress.git",
-             from: "1.0.0")
+             from: "1.0.26")
   ],
   
   targets: [

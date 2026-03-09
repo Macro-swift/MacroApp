@@ -5,6 +5,7 @@ import class     http.IncomingMessage
 import class     http.ServerResponse
 @testable import MacroApp
 
+@MainActor
 final class MacroAppTests: XCTestCase {
 
   func testBasicAppSetup() throws {
@@ -93,9 +94,4 @@ final class MacroAppTests: XCTestCase {
     XCTAssertEqual(res.statusCode, 200)
     XCTAssertEqual(try res.writtenContent.toString(), "Hello World!")
   }
-
-  static var allTests = [
-    ( "testBasicAppSetup", testBasicAppSetup ),
-    ( "testMountAppSetup", testMountAppSetup ),
-  ]
 }
