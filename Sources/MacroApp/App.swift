@@ -49,7 +49,14 @@ public protocol App: Endpoints, MiddlewareObject {
    * if that is missing, 1337 is being used.
    */
   var port : Int? { get }
-  
+
+  /**
+   * Returns the server options to use when creating the HTTP server.
+   *
+   * Override this to customize keep-alive, logging, etc.
+   */
+  var serverOptions : http.Server.Options { get }
+
   /**
    * Init is required to support `@main` (i.e. `static func main()`).
    */
@@ -106,6 +113,8 @@ public extension App {
     return process.getenv("PORT", defaultValue: 1337,
                           lowerWarningBound: 79, upperWarningBound: 2^16)
   }
+
+  var serverOptions : http.Server.Options { .init() }
 }
 
 public extension App {
@@ -141,7 +150,7 @@ public extension App {
     let app  = try express()
     let port = port ?? self.port
 
-    app.listen(port, backlog: backlog) {
+    app.listen(port, backlog: backlog, options: serverOptions) {
       #if false // TODO: enable once ME is tagged
         express.log.notice("App started on port:", port)
       #else
